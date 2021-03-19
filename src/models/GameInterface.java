@@ -31,4 +31,13 @@ public interface GameInterface {
      *return the String "0" if the Bubble is still alive.
      * & return nothing (" ") if it isn't alive.
      */
+    public String toString();
+    /**
+     * return the method printGame that draw the Game.
+     */
+    public String printGame();
+    /**
+     * return the String result where we draw the method with the help of the for loop
+     * & the condition if else.
+     */
 }

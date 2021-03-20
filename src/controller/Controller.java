@@ -3,7 +3,6 @@ package controller;
 import models.Game;
 import models.Messages;
 
-
 public class Controller implements ControllerInterface {
     Game game;
     String statusMessage;
@@ -34,7 +33,7 @@ public class Controller implements ControllerInterface {
 
     public void cursorAngleLeft() {
         this.game.getShooter().setCursorAngleStatue("\\");
-        A = 1;
+                A = 1;
     }
 
     public void ShootCentre() {
@@ -56,5 +55,4 @@ public class Controller implements ControllerInterface {
             LeftDirection = true;
         }
     }
-
 }

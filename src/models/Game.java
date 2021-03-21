@@ -1,5 +1,5 @@
 package models;
-public class Game implements GameInterface {
+public class Game {
 
     Shooter shooter;
     private Bubble[][] gameBubbles;
@@ -15,7 +15,7 @@ public class Game implements GameInterface {
 
             }
         }
-        this.shooter = new Shooter(width / 2, 6, width / 2, 7, "|");
+        this.shooter = new Shooter(width / 2,6,width / 2,7,"|");
     }
 
     public Shooter getShooter() {
@@ -25,11 +25,9 @@ public class Game implements GameInterface {
     public Bubble[][] getGameBubbles() {
         return gameBubbles;
     }
-
-    public Bubble getBubble(int i, int j) {
+    public Bubble getBubble(int i, int j){
         return this.gameBubbles[i][j];
     }
-
     public int getHeight() {
         return height;
     }
@@ -37,7 +35,6 @@ public class Game implements GameInterface {
     public int getWidth() {
         return width;
     }
-
     public int getBubblesSize() {
         return BubblesSize;
     }
@@ -48,5 +45,41 @@ public class Game implements GameInterface {
         } else {
             return " ";
         }
+    }
+
+    public String toString(){
+        return printGame();
+    }
+
+    public String printGame() {
+        String result = "/";
+        for (int j = 0; j < this.width; j++) {
+            result += "-";
+        }
+        result += "\\\n";
+        for (int i = 0; i < this.height; i++) {
+            result += "|" ;
+            for (int j = 0; j < this.width; j++) {
+                if (i < BubblesSize && this.gameBubbles[i][j].isaLive()) {
+                    result += getBubble(this.gameBubbles[i][j]);
+                } else  if ((j == shooter.getShootPositionX()) && (i == shooter.getShootPositionY())) {
+                    result += "O";
+                } else if ((j == shooter.getCursorAnglePX()) && (i == shooter.getCursorAnglePY())) {
+                    result += this.shooter.getCursorAngleStatue();
+                } else {
+                    result += " ";
+                }
+            }
+            result += "|\n";
+        }
+
+        result += "\\";
+        for (int j = 0; j < this.width; j++) {
+            result += "-";
+        }
+        result += "/\n";
+
+
+        return result;
     }
 }

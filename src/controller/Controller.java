@@ -2,14 +2,15 @@ package controller;
 
 import models.Game;
 import models.Messages;
+import util.observer.Observable;
 
-import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
-public class Controller implements ControllerInterface {
+public class Controller extends Observable implements ControllerInterface {
     Game game;
     String statusMessage;
     boolean LeftDirection = true;
-    Scanner myScanner = new Scanner(System.in);
+    boolean isOver = false;
     int A;
 
     public Controller(Game game) {
@@ -32,17 +33,21 @@ public class Controller implements ControllerInterface {
     public void cursorAngleCenter() {
         this.game.getShooter().setCursorAngleStatue("|");
         A = 0;
+        notifyObservers();
     }
 
     public void cursorAngleLeft() {
         this.game.getShooter().setCursorAngleStatue("\\");
         A = 1;
+        notifyObservers();
     }
 
     public void cursorAngleRight() {
         this.game.getShooter().setCursorAngleStatue("/");
         A = 2;
+        notifyObservers();
     }
+
 
     public void ShootCentre() {
         this.game.getShooter().setShootPositionY(this.game.getShooter().getShootPositionY() - 1);
@@ -108,34 +113,14 @@ public class Controller implements ControllerInterface {
         game.getShooter().setShootPositionX(game.getWidth() / 2);
         game.getShooter().setShootPositionY((game.getHeight() - 2));
     }
-
-    public void cursorAngle() {
-        if ((game.getHeight() - 2) == game.getShooter().getShootPositionY()
-                && (game.getWidth() / 2) == game.getShooter().getShootPositionX()) {
-
-            String Direction = myScanner.next();
-            switch (Direction) {
-                case "L":
-                    cursorAngleLeft();
-                    break;
-                case "R":
-                    cursorAngleRight();
-                    break;
-                case "C":
-                    cursorAngleCenter();
-                    break;
-                case "S":
-                    shoot();
-                    break;
-
-                default:
-                    System.out.println("You must choose a Direction! --> (L,C,R,U,S)");
-
+    public void run() {
+        while (!isOver) {
+            notifyObservers();
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } else {
-            shoot();
         }
     }
-
-
 }

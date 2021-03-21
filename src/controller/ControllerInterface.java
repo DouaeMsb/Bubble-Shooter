@@ -82,9 +82,10 @@ public interface ControllerInterface {
      * Let the Shooter back to its place.
      */
 
-    public void cursorAngle();
+    public void run();
+
     /**
-     * Call the Scanner if the Shooter in its place & switch 4 cases
-     * else call the method shoot.
+     * While the variable isOver is true call the notifyObserver
+     * & run the code in each 5 seconds.
      */
 }

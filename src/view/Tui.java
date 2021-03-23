@@ -24,7 +24,7 @@ public class Tui implements IObserver {
     @Override
     public void update() {
         printGame();
-        cursorAngle();
+        //cursorAngle(); // we remove the comment when we want to write in Console (Scanner)
     }
     public void cursorAngle() {
         if ((this.controller.getGame().getHeight() - 2) == this.controller.getGame().getShooter().getShootPositionY()
